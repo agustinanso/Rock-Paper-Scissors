@@ -8,6 +8,7 @@ export default {
         roca: "url('icons/icon-rock.svg')",
         tijera: "url('icons/icon-scissors.svg')",
         triangulo: "url('background/bgtriangle.svg')",
+        reglas: "url('/rules/image-rules.svg')",
       },
       backgroundColor: {
         papeles: "#5671f5",
@@ -17,6 +18,9 @@ export default {
       textColor: {
         darkText: "#3b4363",
         scoreText: "#2a46c0",
+      },
+      fontFamily: {
+        barlow: ["Barlow", "Condensed", "Semi", "sans-serif"],
       },
     },
   },

@@ -39,6 +39,7 @@ function Game() {
   const [disable, setDisable] = useState(null);
   const [showGame, setShowGame] = useState(true);
   const [visibleModal, setVisibleModal] = useState(false);
+  const [rules, setRules] = useState(false);
   const [score, setScore] = useState(() => {
     const savedScore = localStorage.getItem("score");
     return savedScore ? parseInt(savedScore, 10) : 0;
@@ -51,6 +52,13 @@ function Game() {
     setShowGame(false);
     setDisable(true);
     setVisibleModal(true);
+  };
+
+  const handleRules = () => {
+    setRules(true);
+  };
+  const closeRules = () => {
+    setRules(false);
   };
 
   useEffect(() => {
@@ -114,7 +122,7 @@ function Game() {
         {/* JUEGO */}
         <div className="w-full h-screen pt-10 ">
           <div className="flex justify-between  py-5 border-[4px] rounded-lg font-bold text-center max-w-[900px] m-auto px-4 border-white/20 text-white">
-            <div className="flex flex-col gap-1 text-4xl text-left">
+            <div className="flex flex-col gap-1 text-4xl font-bold text-left font-barlow">
               <p>ROCK</p>
               <p>PAPER</p>
               <p>SCISSORS</p>
@@ -150,10 +158,10 @@ function Game() {
               visibleModal
                 ? "text-white scale-100 absolute top-0 bottom-10 left-0 right-0  transition-transform duration-200 delay-75"
                 : "scale-0"
-            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center`}>
+            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center  font-bold font-barlow`}>
             <div className="flex items-center justify-center w-full gap-10 py-10 m-auto">
               <div>
-                <div className="flex flex-col pb-5 text-2xl font-bold">Your Pick:</div>
+                <div className="flex flex-col pb-5 text-2xl">Your Pick:</div>
                 {userChoice !== null && (
                   <div
                     className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${userImage.styles}`}>
@@ -191,9 +199,38 @@ function Game() {
             </div>
           </div>
         </div>
+        <div
+          className={` ${
+            rules
+              ? "transition-transform duration-200 delay-75 shadow-md shadow-black/50"
+              : "scale-0 transition-transform duration-200"
+          } absolute px-4 pt-10 bg-white bottom-1/4 rounded-xl `}>
+          <div className="flex items-center justify-between px-4">
+            <p className="text-2xl font-bold text-darkText">RULES</p>
+            <div className="max-w-[30px]">
+              <button
+                onClick={() => closeRules(false)}
+                className="px-2 py-2 bg-gray-200 rounded-full">
+                ❌
+              </button>
+            </div>
+          </div>
+
+          <div className="relative  bg-center bg-no-repeat bg-reglas  w-[400px] h-[400px]"></div>
+        </div>
+
+        <div className="flex justify-end w-full px-4 py-4">
+          <button
+            className="border-[1px] px-7 py-2 rounded-lg text-white font-bold hover:bg-gray-400"
+            onClick={() => handleRules()}>
+            RULES
+          </button>
+        </div>
       </section>
     </div>
   );
 }
 
 export default Game;
+
+// "absolute px-4 pt-10 bg-white bottom-1/4 rounded-xl"
