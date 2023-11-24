@@ -102,10 +102,17 @@ function Game() {
     <div>
       <section className="flex flex-col items-center h-screen m-auto bg-slate-800">
         {/* JUEGO */}
-        <div className="max-w-[1200px] w-full h-screen">
-          <h1 className="pt-16 pb-10 text-4xl font-bold text-center text-white">
-            Piedra Papel o Tijera!
-          </h1>
+        <div className="w-full h-screen pt-10 ">
+          <div className="flex justify-between py-5 border-[4px] rounded-lg text-4xl font-bold text-center max-w-[900px] m-auto px-4 border-white/20 text-white">
+            <div className="flex flex-col gap-1 text-left">
+              <p>ROCK</p>
+              <p>PAPER</p>
+              <p>SCISSORS</p>
+            </div>
+            <div className="text-center">
+              <p>SCORE</p>
+            </div>
+          </div>
 
           <div
             className={` ${
@@ -130,9 +137,9 @@ function Game() {
           <div
             className={` ${
               visibleModal
-                ? "text-white scale-100 absolute top-0 bottom-10 left-0 right-0"
+                ? "text-white scale-100 absolute top-0 bottom-10 left-0 right-0  transition-transform duration-200 delay-75"
                 : "scale-0"
-            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center transition duration-200 delay-75`}>
+            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center`}>
             <div className="flex items-center justify-center w-full gap-10 py-10 m-auto">
               <div>
                 <div className="flex flex-col pb-5 text-2xl font-bold">Your Pick:</div>
@@ -162,11 +169,11 @@ function Game() {
                 <div className="flex flex-col pb-5 text-2xl font-bold">House Pick:</div>
                 {machineChoice !== null && (
                   <div
-                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${machineImage.styles}`}>
-                    <p
+                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${machineImage.styles} hover:bg-none`}>
+                    <div
                       className={`px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black`}>
                       {machineImage.img}
-                    </p>
+                    </div>
                   </div>
                 )}
               </div>
