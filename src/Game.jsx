@@ -4,9 +4,9 @@ import Papersvg from "./components/Papersvg";
 import Scissors from "./components/Scissors";
 
 const gameOptions = [
-  { id: 0, name: "Piedra", emoji: "💎", beat: 2, img: <Rocksvg /> },
-  { id: 2, name: "Papel", emoji: "📜", beat: 1, img: <Papersvg /> },
-  { id: 1, name: "Tijera", emoji: "✂", beat: 0, img: <Scissors /> },
+  { id: 0, name: "Piedra", emoji: "💎", beat: 2, img: <Rocksvg /> , styles:'bg-red-500 hover:bg-red-400' },
+  { id: 2, name: "Papel", emoji: "📜", beat: 1, img: <Papersvg /> , styles:'bg-yellow-400 hover:bg-yellow-300'},
+  { id: 1, name: "Tijera", emoji: "✂", beat: 0, img: <Scissors /> , styles:'bg-blue-500 hover:bg-blue-400' },
 ];
 
 function Game() {
@@ -71,6 +71,8 @@ function Game() {
     setWinnerMessage(null);
     setLoserMessage(null);
   };
+  // flex items-center justify-center gap-4 pt-10
+  // `{px-5 py-4 text-center bg-white rounded-full hover:bg-orange-300 disabled:bg-gray-400`
 
   return (
     <div>
@@ -81,15 +83,16 @@ function Game() {
             Piedra Papel o Tijera!
           </h1>
 
-          <div className="flex items-center justify-center gap-4 pt-10">
-            {gameOptions.map((game) => (
-              <div key={game.id} className="px-3 py-3 bg-red-500 rounded-full">
+          <div className="flex items-center   m-auto justify-center gap-14   max-w-[420px] w-full flex-wrap bg-no-repeat bg-center bg-triangulo">
+            {gameOptions.map((game ) => (
+              <div key={game.id} >  
+         
                 <button
                   disabled={disable}
                   onClick={() => handlePlay(game.id)}
-                  className="px-5 py-4 text-center bg-white rounded-full hover:bg-orange-300 disabled:bg-gray-400"
+                 className={`flex flex-wrap items-center cursor-pointer justify-center gap-4 px-3 py-3 rounded-full ${game.styles}`}
                   key={game.id}>
-                  {game.img}
+                  <div className="px-3 py-3 bg-white rounded-full shadow-inner min-w-[100px] min-h-[100px] flex justify-center items-center shadow-black">{game.img}</div> 
                 </button>
               </div>
             ))}
