@@ -4,40 +4,66 @@ import Papersvg from "./components/Papersvg";
 import Scissors from "./components/Scissors";
 
 const gameOptions = [
-  { id: 0, name: "Piedra", emoji: "💎", beat: 2, img: <Rocksvg /> , styles:'bg-red-500 hover:bg-red-400' },
-  { id: 2, name: "Papel", emoji: "📜", beat: 1, img: <Papersvg /> , styles:'bg-yellow-400 hover:bg-yellow-300'},
-  { id: 1, name: "Tijera", emoji: "✂", beat: 0, img: <Scissors /> , styles:'bg-blue-500 hover:bg-blue-400' },
+  {
+    id: 0,
+    name: "Piedra",
+    beat: 2,
+    img: <Rocksvg />,
+    styles: "bg-red-500 hover:bg-red-400 disabled:bg-gray-400",
+  },
+  {
+    id: 1,
+    name: "Tijera",
+    beat: 0,
+    img: <Scissors />,
+    styles: "bg-blue-500 hover:bg-blue-400 disabled:bg-gray-400",
+  },
+  {
+    id: 2,
+    name: "Papel",
+    beat: 1,
+    img: <Papersvg />,
+    styles: "bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400",
+  },
 ];
 
 function Game() {
   const [userChoice, setUserChoice] = useState(null);
-  const [userMessage, setUserMessage] = useState(null);
   const [machineChoice, setMachineChoice] = useState(null);
   const [winnerMessage, setWinnerMessage] = useState(null);
   const [loserMessage, setLoserMessage] = useState(null);
-  const [machineMessage, setMachineMessage] = useState(null);
+  const [userImage, setUserImage] = useState({ img: null, styles: null });
+  const [machineImage, setMachineImage] = useState({ img: null, styles: null });
   const [empate, setEmpate] = useState(null);
   const [result, setResult] = useState(null);
   const [disable, setDisable] = useState(null);
+  const [showGame, setShowGame] = useState(true);
   const [visibleModal, setVisibleModal] = useState(false);
 
   const handlePlay = (pick) => {
     setUserChoice(pick);
     const randomPick = Math.floor(Math.random() * 3);
     setMachineChoice(randomPick);
+    setShowGame(false);
     setDisable(true);
     setVisibleModal(true);
   };
 
   useEffect(() => {
     if (userChoice !== null) {
-      setUserMessage(`Jugador: ${gameOptions[userChoice]?.emoji}`);
+      setUserImage({
+        img: gameOptions[userChoice].img,
+        styles: gameOptions[userChoice].styles,
+      });
     }
   }, [userChoice]);
 
   useEffect(() => {
     if (machineChoice !== null) {
-      setMachineMessage(`Maquina: ${gameOptions[machineChoice]?.emoji}`);
+      setMachineImage({
+        img: gameOptions[machineChoice].img,
+        styles: gameOptions[machineChoice].styles,
+      });
     }
   }, [machineChoice]);
 
@@ -48,13 +74,12 @@ function Game() {
 
       if (userOption.beat === machineOption.id) {
         setResult(machineOption);
-        setLoserMessage("¡Perdiste humano!");
+        setLoserMessage("YOU LOSE");
       } else if (machineOption.beat === userOption.id) {
         setResult(userOption);
-        setWinnerMessage("¡Ganaste!");
-        setLoserMessage("Perdió la Máquina");
+        setWinnerMessage("YOU WIN");
       } else {
-        setEmpate("Empataron");
+        setEmpate("TIE");
       }
     }
   }, [userChoice, machineChoice]);
@@ -62,37 +87,40 @@ function Game() {
   const resetGame = () => {
     setEmpate(null);
     setMachineChoice(null);
-    setMachineMessage(null);
     setResult(null);
     setUserChoice(null);
-    setUserMessage(null);
     setDisable(false);
+    setUserImage({ img: null, styles: null });
+    setMachineImage({ img: null, styles: null });
     setVisibleModal(false);
+    setShowGame(true);
     setWinnerMessage(null);
     setLoserMessage(null);
   };
-  // flex items-center justify-center gap-4 pt-10
-  // `{px-5 py-4 text-center bg-white rounded-full hover:bg-orange-300 disabled:bg-gray-400`
 
   return (
     <div>
       <section className="flex flex-col items-center h-screen m-auto bg-slate-800">
         {/* JUEGO */}
-        <div className="max-w-[1200px] w-full">
-          <h1 className="pt-32 text-6xl font-bold text-center text-white">
+        <div className="max-w-[1200px] w-full h-screen">
+          <h1 className="pt-16 pb-10 text-4xl font-bold text-center text-white">
             Piedra Papel o Tijera!
           </h1>
 
-          <div className="flex items-center   m-auto justify-center gap-14   max-w-[420px] w-full flex-wrap bg-no-repeat bg-center bg-triangulo">
-            {gameOptions.map((game ) => (
-              <div key={game.id} >  
-         
+          <div
+            className={` ${
+              showGame ? "text-white scale-100" : "scale-0"
+            }  flex items-center m-auto mt-10 justify-evenly gap-14 max-w-[420px] w-full flex-wrap bg-no-repeat bg-center bg-triangulo transition duration-200 delay-75`}>
+            {gameOptions.map((game) => (
+              <div key={game.id}>
                 <button
                   disabled={disable}
                   onClick={() => handlePlay(game.id)}
-                 className={`flex flex-wrap items-center cursor-pointer justify-center gap-4 px-3 py-3 rounded-full ${game.styles}`}
+                  className={`flex flex-wrap items-center cursor-pointer justify-center gap-4 px-4 py-4 rounded-full ${game.styles}`}
                   key={game.id}>
-                  <div className="px-3 py-3 bg-white rounded-full shadow-inner min-w-[100px] min-h-[100px] flex justify-center items-center shadow-black">{game.img}</div> 
+                  <div className="px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black">
+                    {game.img}
+                  </div>
                 </button>
               </div>
             ))}
@@ -101,26 +129,47 @@ function Game() {
           {/* MODAL */}
           <div
             className={` ${
-              visibleModal ? "text-white bg-orange-500 max-w-[600px] w-full" : "hidden"
-            }  pb-10 pt-10 px-10 rounded-xl mt-10 flex flex-col text-center gap-8 items-center justify-center m-auto shadow-md shadow-slate-950`}>
-            <div className="flex justify-between w-full">
-              <div className="border-[2px] px-6 py-3 border-black rounded-xl bg-orange-600 text-white">
-                {userChoice !== null && <p className="text-2xl font-bold ">{userMessage}</p>}
+              visibleModal
+                ? "text-white scale-100 absolute top-0 bottom-10 left-0 right-0"
+                : "scale-0"
+            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center transition duration-200 delay-75`}>
+            <div className="flex items-center justify-center w-full gap-10 py-10 m-auto">
+              <div>
+                <div className="flex flex-col pb-5 text-2xl font-bold">Your Pick:</div>
+                {userChoice !== null && (
+                  <div
+                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${userImage.styles}`}>
+                    <div
+                      className={`px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black`}>
+                      {userImage.img}
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="px-6 py-3 border-[2px] border-black rounded-xl bg-orange-600 text-white">
-                {machineChoice !== null && <p className="text-2xl font-bold ">{machineMessage}</p>}
+              <div className="flex flex-col items-center justify-center gap-5">
+                <div className="items-center font-bold text-center rounded-xl [&>p]:text-4xl">
+                  {winnerMessage && <p>{winnerMessage}</p>}
+                  {loserMessage && <p>{loserMessage}</p>}
+                  {empate !== null && <p>{empate}</p>}
+                </div>
+
+                <div className=" [&>button]:w-[250px] [&>button]:bg-white [&>button]:hover:bg-gray-200 [&>button]:py-4 [&>button]:px-3 [&>button]:rounded-lg [&>button]:text-red-400 [&>button]:font-bold [&>button]:shadow-md [&>button]:shadow-gray-800">
+                  {result !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
+                  {empate !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
+                </div>
               </div>
-            </div>
-
-            <div className="border-[2px] items-center text-center border-black px-9 py-9 text-4xl font-bold rounded-xl bg-orange-600">
-              {winnerMessage && <p>{winnerMessage}</p>}
-              {loserMessage && <p>{loserMessage}</p>}
-              {empate !== null && <p>{empate}</p>}
-            </div>
-
-            <div className="[&>button]:bg-emerald-600 [&>button]:hover:bg-emerald-400 [&>button]:py-4 [&>button]:px-3 [&>button]:rounded-lg [&>button]:text-white [&>button]:font-bold [&>button]:shadow-md [&>button]:shadow-gray-800">
-              {result !== null && <button onClick={() => resetGame()}>Juega de nuevo!</button>}
-              {empate !== null && <button onClick={() => resetGame()}>Juega de nuevo!</button>}
+              <div>
+                <div className="flex flex-col pb-5 text-2xl font-bold">House Pick:</div>
+                {machineChoice !== null && (
+                  <div
+                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${machineImage.styles}`}>
+                    <p
+                      className={`px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black`}>
+                      {machineImage.img}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
