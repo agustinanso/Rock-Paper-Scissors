@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Rocksvg from "./components/Rocksvg";
 import Papersvg from "./components/Papersvg";
 import Scissors from "./components/Scissors";
+import HeaderGame from "./components/HeaderGame";
+import ResultSection from "./components/ResultSection";
 
-const gameOptions = [
+export const gameOptions = [
   {
     id: 0,
     name: "Piedra",
@@ -121,18 +123,7 @@ function Game() {
       <section className="flex flex-col items-center h-screen m-auto bg-slate-800">
         {/* JUEGO */}
         <div className="w-full h-screen pt-10 ">
-          <div className="flex justify-between  py-5 border-[4px] rounded-lg font-bold text-center max-w-[900px] m-auto px-4 border-white/20 text-white">
-            <div className="flex flex-col gap-1 text-4xl font-bold text-left font-barlow">
-              <p>ROCK</p>
-              <p>PAPER</p>
-              <p>SCISSORS</p>
-            </div>
-            <div className="px-2 pt-4 items-center flex flex-col text-6xl text-center text-black/80 bg-white max-w-[150px] w-full rounded-lg shadow-sm shadow-black">
-              <p className="text-base text-scoreText">SCORE</p>
-              <p className="px-5">{score}</p>
-            </div>
-          </div>
-
+          <HeaderGame score={score} />
           <div
             className={` ${
               showGame ? "text-white scale-100" : "scale-0"
@@ -153,51 +144,18 @@ function Game() {
           </div>
 
           {/* MODAL */}
-          <div
-            className={` ${
-              visibleModal
-                ? "text-white scale-100 absolute top-0 bottom-10 left-0 right-0  transition-transform duration-200 delay-75"
-                : "scale-0"
-            }   rounded-xl  flex flex-col text-center gap-8 items-center justify-center  font-bold font-barlow`}>
-            <div className="flex items-center justify-center w-full gap-10 py-10 m-auto">
-              <div>
-                <div className="flex flex-col pb-5 text-2xl">Your Pick:</div>
-                {userChoice !== null && (
-                  <div
-                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${userImage.styles}`}>
-                    <div
-                      className={`px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black`}>
-                      {userImage.img}
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col items-center justify-center gap-5">
-                <div className="items-center font-bold text-center rounded-xl [&>p]:text-4xl">
-                  {winnerMessage && <p>{winnerMessage}</p>}
-                  {loserMessage && <p>{loserMessage}</p>}
-                  {empate !== null && <p>{empate}</p>}
-                </div>
-
-                <div className=" [&>button]:w-[250px] [&>button]:bg-white [&>button]:hover:bg-gray-200 [&>button]:py-4 [&>button]:px-3 [&>button]:rounded-lg [&>button]:text-red-400 [&>button]:font-bold [&>button]:shadow-md [&>button]:shadow-gray-800">
-                  {result !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
-                  {empate !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
-                </div>
-              </div>
-              <div>
-                <div className="flex flex-col pb-5 text-2xl font-bold">House Pick:</div>
-                {machineChoice !== null && (
-                  <div
-                    className={`flex items-center justify-center gap-4 px-4 py-4 rounded-full ${machineImage.styles} hover:bg-none`}>
-                    <div
-                      className={`px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black`}>
-                      {machineImage.img}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <ResultSection
+            visibleModal={visibleModal}
+            machineChoice={machineChoice}
+            userChoice={userChoice}
+            machineImage={machineImage}
+            userImage={userImage}
+            winnerMessage={winnerMessage}
+            loserMessage={loserMessage}
+            empate={empate}
+            result={result}
+            resetGame={resetGame}
+          />
         </div>
         <div
           className={` ${
