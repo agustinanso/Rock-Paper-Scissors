@@ -4,6 +4,8 @@ import Papersvg from "./components/Papersvg";
 import Scissors from "./components/Scissors";
 import HeaderGame from "./components/HeaderGame";
 import ResultSection from "./components/ResultSection";
+import RulesModal from "./components/RulesModal";
+import GameMap from "./components/GameMap";
 
 export const gameOptions = [
   {
@@ -121,28 +123,10 @@ function Game() {
   return (
     <div>
       <section className="flex flex-col items-center h-screen m-auto bg-slate-800">
-        {/* JUEGO */}
         <div className="w-full h-screen pt-10 ">
           <HeaderGame score={score} />
-          <div
-            className={` ${
-              showGame ? "text-white scale-100" : "scale-0"
-            }  flex items-center m-auto mt-10 justify-evenly gap-14 max-w-[420px] w-full flex-wrap bg-no-repeat bg-center bg-triangulo transition duration-200 delay-75`}>
-            {gameOptions.map((game) => (
-              <div key={game.id}>
-                <button
-                  disabled={disable}
-                  onClick={() => handlePlay(game.id)}
-                  className={`flex flex-wrap items-center cursor-pointer justify-center gap-4 px-4 py-4 rounded-full ${game.styles}`}
-                  key={game.id}>
-                  <div className="px-3 py-3 bg-white rounded-full shadow-inner min-w-[120px] min-h-[120px] flex justify-center items-center shadow-black">
-                    {game.img}
-                  </div>
-                </button>
-              </div>
-            ))}
-          </div>
-
+          {/* RENDER JUEGO */}
+          <GameMap showGame={showGame} disable={disable} handlePlay={handlePlay} />
           {/* MODAL */}
           <ResultSection
             visibleModal={visibleModal}
@@ -157,33 +141,8 @@ function Game() {
             resetGame={resetGame}
           />
         </div>
-        <div
-          className={` ${
-            rules
-              ? "transition-transform duration-200 delay-75 shadow-md shadow-black/50"
-              : "scale-0 transition-transform duration-200"
-          } absolute px-4 pt-10 bg-white bottom-1/4 rounded-xl `}>
-          <div className="flex items-center justify-between px-4">
-            <p className="text-2xl font-bold text-darkText">RULES</p>
-            <div className="max-w-[30px]">
-              <button
-                onClick={() => closeRules(false)}
-                className="px-2 py-2 bg-gray-200 rounded-full">
-                ❌
-              </button>
-            </div>
-          </div>
-
-          <div className="relative  bg-center bg-no-repeat bg-reglas  w-[400px] h-[400px]"></div>
-        </div>
-
-        <div className="flex justify-end w-full px-4 py-4">
-          <button
-            className="border-[1px] px-7 py-2 rounded-lg text-white font-bold hover:bg-gray-400"
-            onClick={() => handleRules()}>
-            RULES
-          </button>
-        </div>
+        {/* RULES MODAL */}
+        <RulesModal closeRules={closeRules} rules={rules} handleRules={handleRules} />
       </section>
     </div>
   );
