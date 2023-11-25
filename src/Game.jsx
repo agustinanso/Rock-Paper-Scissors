@@ -123,10 +123,15 @@ function Game() {
   return (
     <div>
       <section className="flex flex-col items-center h-screen m-auto bg-slate-800">
-        <div className="w-full h-screen pt-10 ">
-          <HeaderGame score={score} />
+        <div className="container items-center justify-center w-full h-screen px-2 m-auto bg-slate-800">
+          <div className="py-6">
+            <HeaderGame score={score} />
+          </div>
           {/* RENDER JUEGO */}
-          <GameMap showGame={showGame} disable={disable} handlePlay={handlePlay} />
+          <div className="pt-10">
+            <GameMap showGame={showGame} disable={disable} handlePlay={handlePlay} />
+          </div>
+
           {/* MODAL */}
           <ResultSection
             visibleModal={visibleModal}
