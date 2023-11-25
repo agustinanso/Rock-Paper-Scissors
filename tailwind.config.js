@@ -7,7 +7,7 @@ export default {
         papel: "url('icons/icon-paper.svg')",
         roca: "url('icons/icon-rock.svg')",
         tijera: "url('icons/icon-scissors.svg')",
-        triangulo: "url('background/bgtriangle.svg')",
+        triangulo: "url('/public/background/bg-triangle.svg')",
         reglas: "url('/rules/image-rules.svg')",
       },
       backgroundColor: {
