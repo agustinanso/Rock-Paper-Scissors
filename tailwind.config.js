@@ -22,6 +22,9 @@ export default {
       fontFamily: {
         barlow: ["Barlow", "Condensed", "Semi", "sans-serif"],
       },
+      boxShadow: {
+        redCircle: "shadow-[0px_20px_1px_0px_#e53e3e]",
+      },
     },
   },
   plugins: [],

@@ -13,21 +13,22 @@ export const gameOptions = [
     name: "Piedra",
     beat: 2,
     img: <Rocksvg />,
-    styles: "bg-red-500 hover:bg-red-400 disabled:bg-gray-400",
+    styles: "bg-red-400 hover:bg-red-300 disabled:bg-gray-400 shadow-[0px_5px_1px_0px_#c53030]",
   },
   {
     id: 1,
     name: "Tijera",
     beat: 0,
     img: <Scissors />,
-    styles: "bg-blue-500 hover:bg-blue-400 disabled:bg-gray-400",
+    styles: "bg-blue-400 hover:bg-blue-300 disabled:bg-gray-400 shadow-[0px_5px_1px_0px_#2b6cb0]",
   },
   {
     id: 2,
     name: "Papel",
     beat: 1,
     img: <Papersvg />,
-    styles: "bg-yellow-400 hover:bg-yellow-300 disabled:bg-gray-400",
+    styles:
+      "bg-yellow-300 hover:bg-yellow-200 disabled:bg-gray-400 shadow-[0px_5px_1px_0px_#c4a639]",
   },
 ];
 

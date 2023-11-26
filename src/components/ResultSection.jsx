@@ -1,4 +1,5 @@
 import { gameOptions } from "../Game";
+import ButtonPlay from "./ButtonPlay";
 
 function ResultSection({
   visibleModal,
@@ -27,7 +28,7 @@ function ResultSection({
               Your Pick:
               {userChoice !== null && (
                 <div
-                  className={`items-center flex justify-center px-4 py-4 rounded-full ${userImage.styles}`}>
+                  className={`items-center flex justify-center px-4 py-4 rounded-full ${userImage.styles} `}>
                   <div
                     className={`px-4 py-4 bg-white rounded-full shadow-inner min-w-[110px] min-h-[110px] flex justify-center items-center shadow-black`}>
                     {userImage.img}
@@ -40,10 +41,9 @@ function ResultSection({
               {winnerMessage && <p>{winnerMessage}</p>}
               {loserMessage && <p>{loserMessage}</p>}
               {empate !== null && <p>{empate}</p>}
-              <div className=" [&>button]:w-[250px] [&>button]:bg-white [&>button]:hover:bg-gray-200 [&>button]:py-4 [&>button]:px-3 [&>button]:rounded-lg [&>button]:text-red-400 [&>button]:font-bold [&>button]:shadow-md [&>button]:shadow-gray-800">
-                {result !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
-                {empate !== null && <button onClick={() => resetGame()}>PLAY AGAIN</button>}
-              </div>
+
+              {result !== null && <ButtonPlay resetGame={resetGame} />}
+              {empate !== null && <ButtonPlay resetGame={resetGame} />}
             </div>
 
             <div className="flex flex-col gap-4 pb-5 text-2xl font-bold">
