@@ -133,7 +133,7 @@ function Game() {
             <GameMap showGame={showGame} disable={disable} handlePlay={handlePlay} />
           </div>
 
-          {/* MODAL */}
+          {/* MODAL RESULTADO */}
           <ResultSection
             visibleModal={visibleModal}
             machineChoice={machineChoice}
@@ -147,7 +147,7 @@ function Game() {
             resetGame={resetGame}
           />
         </div>
-        {/* RULES MODAL */}
+        {/* MODAL REGLAS */}
         <RulesModal closeRules={closeRules} rules={rules} handleRules={handleRules} />
       </section>
     </div>

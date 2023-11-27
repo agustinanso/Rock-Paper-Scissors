@@ -30,7 +30,7 @@ function ResultSection({
                 <div
                   className={`items-center flex justify-center px-4 py-4 rounded-full ${userImage.styles} `}>
                   <div
-                    className={`px-4 py-4 bg-white rounded-full shadow-inner min-w-[110px] min-h-[110px] flex justify-center items-center shadow-black`}>
+                    className={`px-4 py-4 bg-white rounded-full  min-w-[110px] min-h-[110px] flex justify-center items-center shadow-[inset_0px_10px_2px_0px_#00000024]`}>
                     {userImage.img}
                   </div>
                 </div>
@@ -52,7 +52,7 @@ function ResultSection({
                 <div
                   className={`flex items-center justify-center  px-4 py-4 rounded-full ${machineImage.styles} hover:bg-none`}>
                   <div
-                    className={`px-4 py-4 bg-white rounded-full shadow-inner  min-w-[110px] min-h-[110px] flex justify-center items-center shadow-black`}>
+                    className={`px-4 py-4 bg-white rounded-full shadow-[inset_0px_10px_2px_0px_#00000024] min-w-[110px] min-h-[110px] flex justify-center items-center `}>
                     {machineImage.img}
                   </div>
                 </div>
